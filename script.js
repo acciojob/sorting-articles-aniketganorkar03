@@ -1,4 +1,4 @@
-//your JS code here. If required.
+//your JS code here. If required..
 const bands = [
   'The Plot in You',
   'The Devil Wears Prada',
@@ -16,12 +16,18 @@ const bands = [
 ];
 
 function strip(article) {
-  return article.replace(/^(a |an |the )/i, '').trim();
+  return article.replace(/^(a|an|the)\s+/i, '').trim();
 }
 
-const sortedBands = bands.sort((a, b) =>
-  strip(a).localeCompare(strip(b))
-);
+const sortedBands = [...bands].sort((a, b) => {
+  const aKey = strip(a);
+  const bKey = strip(b);
+  return aKey.localeCompare(bKey);
+});
 
-document.getElementById('band').innerHTML =
-  sortedBands.map(band => `<li>${band}</li>`).join('');
+const list = document.getElementById('band');
+sortedBands.forEach(band => {
+  const li = document.createElement('li');
+  li.textContent = band;
+  list.appendChild(li);
+});
